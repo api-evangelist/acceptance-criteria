@@ -1,0 +1,15 @@
+name: Acceptance Criteria
+description: Predefined conditions that a product, feature, or user story must meet
+  to be considered complete and acceptable by stakeholders. These criteria establish
+  clear, testable requirements that guide development and validate when work is done.
+url: https://www.agilealliance.org/glossary/acceptance/
+tags:
+- Agile
+- Requirements
+- Testing
+- Quality Assurance
+- User Stories
+created: '2025'
+modified: '2025'
+apis: []
+common: []
