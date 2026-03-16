@@ -1,15 +1,24 @@
+aid: acceptance-criteria
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/acceptance-criteria/refs/heads/main/apis.yml
 name: Acceptance Criteria
-description: Predefined conditions that a product, feature, or user story must meet
-  to be considered complete and acceptable by stakeholders. These criteria establish
-  clear, testable requirements that guide development and validate when work is done.
-url: https://www.agilealliance.org/glossary/acceptance/
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Agile
-- Requirements
-- Testing
-- Quality Assurance
-- User Stories
-created: '2025'
-modified: '2025'
+  - Agile
+  - Requirements
+  - Testing
+  - Quality Assurance
+  - User Stories
+description: >-
+  Predefined conditions that a product, feature, or user story must meet to be
+  considered complete and acceptable by stakeholders. These criteria establish
+  clear, testable requirements that guide development and validate when work
+  is done.
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis: []
-common: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
