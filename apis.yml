@@ -6,9 +6,9 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Agile
+  - Quality Assurance
   - Requirements
   - Testing
-  - Quality Assurance
   - User Stories
 description: >-
   Predefined conditions that a product, feature, or user story must meet to be
