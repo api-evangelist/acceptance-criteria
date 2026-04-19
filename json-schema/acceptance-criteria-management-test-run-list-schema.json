@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/test-run-list.json",
+  "title": "TestRunList",
+  "type": "object",
+  "description": "Paginated list of test runs",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of test runs"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number"
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "Number of items per page"
+    },
+    "runs": {
+      "type": "array",
+      "description": "Array of test run objects",
+      "items": {
+        "$ref": "test-run.json"
+      }
+    }
+  }
+}

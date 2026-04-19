@@ -1,0 +1,11 @@
+{
+  "id": "scenario-001",
+  "storyId": "story-001",
+  "criterionId": "ac-001",
+  "title": "Filter products by single category",
+  "featureFile": "features/product-listing/category-filter.feature",
+  "gherkin": "Scenario: Filter products by single category\n  Given I am on the product listing page\n  When I select the 'Electronics' category filter\n  Then only Electronics products are displayed\n  And the product count shows 42 items",
+  "status": "passing",
+  "lastRunAt": "2024-01-15T08:00:00Z",
+  "createdAt": "2024-01-10T10:00:00Z"
+}

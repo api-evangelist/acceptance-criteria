@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/acceptance-criteria-list.json",
+  "title": "AcceptanceCriteriaList",
+  "type": "object",
+  "description": "List of acceptance criteria for a user story",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of acceptance criteria"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number"
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "Number of items per page"
+    },
+    "criteria": {
+      "type": "array",
+      "description": "Array of acceptance criteria",
+      "items": {
+        "$ref": "acceptance-criterion.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/update-user-story-request.json",
+  "title": "UpdateUserStoryRequest",
+  "type": "object",
+  "description": "Request body for updating an existing user story",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Updated title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Updated description"
+    },
+    "status": {
+      "type": "string",
+      "description": "Updated status",
+      "enum": [
+        "backlog",
+        "in-progress",
+        "ready-for-review",
+        "done"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "description": "Updated priority",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "storyPoints": {
+      "type": "integer",
+      "description": "Updated story point estimate"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-create-test-run-request.json",
+  "title": "CreateTestRunRequest",
+  "type": "object",
+  "description": "Request body for creating and triggering a test run",
+  "properties": {
+    "storyIds": {
+      "type": "array",
+      "description": "User story IDs to test (all scenarios for these stories)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scenarioIds": {
+      "type": "array",
+      "description": "Specific scenario IDs to execute",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-create-scenario-request.json",
+  "title": "CreateScenarioRequest",
+  "type": "object",
+  "description": "Request body for creating a BDD scenario",
+  "properties": {
+    "storyId": {
+      "type": "string",
+      "description": "ID of the parent user story"
+    },
+    "criterionId": {
+      "type": "string",
+      "description": "ID of the linked acceptance criterion"
+    },
+    "title": {
+      "type": "string",
+      "description": "Scenario title"
+    },
+    "featureFile": {
+      "type": "string",
+      "description": "Feature file path"
+    },
+    "gherkin": {
+      "type": "string",
+      "description": "Full Gherkin scenario text"
+    }
+  },
+  "required": [
+    "storyId",
+    "title",
+    "featureFile",
+    "gherkin"
+  ]
+}

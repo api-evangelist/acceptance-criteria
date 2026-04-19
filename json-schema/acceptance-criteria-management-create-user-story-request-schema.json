@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/create-user-story-request.json",
+  "title": "CreateUserStoryRequest",
+  "type": "object",
+  "description": "Request body for creating a new user story",
+  "required": [
+    "title"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Short title for the user story"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full user story narrative"
+    },
+    "priority": {
+      "type": "string",
+      "description": "Priority level",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "storyPoints": {
+      "type": "integer",
+      "description": "Effort estimate in story points"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Labels or tags",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Assignee username or ID"
+    }
+  }
+}

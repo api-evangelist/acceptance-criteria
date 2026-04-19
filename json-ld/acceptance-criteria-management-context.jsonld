@@ -1,0 +1,74 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "ac": "https://api.example.com/vocab/",
+
+    "UserStory": "ac:UserStory",
+    "AcceptanceCriterion": "ac:AcceptanceCriterion",
+    "Scenario": "ac:Scenario",
+    "TestRun": "ac:TestRun",
+
+    "id": "@id",
+    "title": "schema:name",
+    "description": "schema:description",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "status": "ac:status",
+    "priority": "ac:priority",
+    "storyPoints": "ac:storyPoints",
+    "acceptanceCriteria": "ac:acceptanceCriteria",
+    "tags": "schema:keywords",
+    "assignee": "schema:assignee",
+
+    "storyId": "ac:userStory",
+    "criterionId": "ac:acceptanceCriterion",
+    "format": "ac:criterionFormat",
+    "given": "ac:given",
+    "when": "ac:when",
+    "then": "ac:then",
+    "order": "ac:order",
+
+    "featureFile": "ac:featureFile",
+    "gherkin": "ac:gherkin",
+    "lastRunAt": {
+      "@id": "ac:lastRunAt",
+      "@type": "xsd:dateTime"
+    },
+
+    "storyIds": "ac:userStories",
+    "scenarioIds": "ac:scenarios",
+    "totalScenarios": "ac:totalScenarios",
+    "passedScenarios": "ac:passedScenarios",
+    "failedScenarios": "ac:failedScenarios",
+    "skippedScenarios": "ac:skippedScenarios",
+    "startedAt": {
+      "@id": "schema:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "completedAt": {
+      "@id": "schema:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "reportUrl": "schema:url",
+
+    "total": "ac:total",
+    "page": "ac:page",
+    "pageSize": "ac:pageSize",
+    "stories": "ac:stories",
+    "criteria": "ac:criteria",
+    "runs": "ac:runs",
+
+    "code": "ac:errorCode",
+    "message": "schema:description",
+    "details": "ac:errorDetails"
+  }
+}

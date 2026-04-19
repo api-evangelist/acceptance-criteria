@@ -1,0 +1,29 @@
+{
+  "id": "story-001",
+  "title": "As a customer, I want to filter products by category so that I can find items more quickly",
+  "description": "As a customer\nI want to filter products by category\nSo that I can find items more quickly without scrolling through all products",
+  "status": "in-progress",
+  "priority": "high",
+  "storyPoints": 3,
+  "acceptanceCriteria": [
+    {
+      "id": "ac-001",
+      "storyId": "story-001",
+      "description": "Given I am on the product listing page, when I select a category filter, then only products in that category are displayed",
+      "format": "gherkin",
+      "given": "I am on the product listing page",
+      "when": "I select a category filter",
+      "then": "only products in that category are displayed",
+      "status": "passing",
+      "order": 1
+    }
+  ],
+  "tags": [
+    "e-commerce",
+    "search",
+    "frontend"
+  ],
+  "assignee": "jane.smith",
+  "createdAt": "2024-01-10T09:00:00Z",
+  "updatedAt": "2024-01-15T14:30:00Z"
+}

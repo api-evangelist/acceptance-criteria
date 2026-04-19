@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-create-user-story-request.json",
+  "title": "CreateUserStoryRequest",
+  "type": "object",
+  "description": "Request body for creating a new user story",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Short title for the user story"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full user story narrative"
+    },
+    "priority": {
+      "type": "string",
+      "description": "Priority level",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "storyPoints": {
+      "type": "integer",
+      "description": "Effort estimate in story points"
+    },
+    "tags": {
+      "type": "array",
+      "description": "Labels or tags",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Assignee username or ID"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

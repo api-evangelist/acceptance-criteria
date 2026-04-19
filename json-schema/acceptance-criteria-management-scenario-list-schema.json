@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/scenario-list.json",
+  "title": "ScenarioList",
+  "type": "object",
+  "description": "Paginated list of BDD scenarios",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of scenarios matching the query"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number"
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "Number of items per page"
+    },
+    "scenarios": {
+      "type": "array",
+      "description": "Array of scenario objects",
+      "items": {
+        "$ref": "scenario.json"
+      }
+    }
+  }
+}

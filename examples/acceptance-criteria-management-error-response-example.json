@@ -1,0 +1,5 @@
+{
+  "code": "STORY_NOT_FOUND",
+  "message": "User story with ID 'story-999' was not found",
+  "details": "Ensure the story ID is correct and that you have access to the project containing this story"
+}

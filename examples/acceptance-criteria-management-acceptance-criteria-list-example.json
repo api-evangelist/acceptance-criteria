@@ -1,0 +1,28 @@
+{
+  "total": 3,
+  "page": 1,
+  "pageSize": 20,
+  "criteria": [
+    {
+      "id": "ac-001",
+      "description": "Given I am on the product listing page, when I select a category filter, then only products in that category are displayed",
+      "format": "gherkin",
+      "status": "passing",
+      "order": 1
+    },
+    {
+      "id": "ac-002",
+      "description": "The filter should show the count of products in each category in parentheses",
+      "format": "plain-text",
+      "status": "not-verified",
+      "order": 2
+    },
+    {
+      "id": "ac-003",
+      "description": "When no products match the selected category, a 'No results found' message is displayed",
+      "format": "plain-text",
+      "status": "failing",
+      "order": 3
+    }
+  ]
+}

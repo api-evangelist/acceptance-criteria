@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-user-story.json",
+  "title": "UserStory",
+  "type": "object",
+  "description": "A user story representing a feature or requirement from the perspective of an end user",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the user story"
+    },
+    "title": {
+      "type": "string",
+      "description": "Short title summarizing the user story (As a... I want... So that...)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full user story narrative including role, goal, and benefit"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current lifecycle status of the user story",
+      "enum": [
+        "backlog",
+        "in-progress",
+        "ready-for-review",
+        "done"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "description": "Priority level of the user story",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "storyPoints": {
+      "type": "integer",
+      "description": "Effort estimate in story points"
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "description": "List of acceptance criteria that define done for this story",
+      "items": {
+        "$ref": "acceptance-criterion.json"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Labels or tags associated with the story",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Username or ID of the person assigned to this story"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the user story was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Timestamp when the user story was last updated"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "status"
+  ]
+}

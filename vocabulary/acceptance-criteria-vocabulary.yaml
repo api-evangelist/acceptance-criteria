@@ -1,0 +1,63 @@
+vocabulary:
+  name: Acceptance Criteria Vocabulary
+  description: Controlled vocabulary for acceptance criteria, BDD testing, and agile requirements management concepts, operations, and stakeholder roles
+  version: 1.0.0
+  domain: Agile / Quality Assurance
+
+  resources:
+    - name: UserStory
+      description: A feature or requirement expressed from the perspective of an end user using the "As a... I want... So that..." narrative structure
+      aliases: [feature, story, ticket, issue, card]
+      properties: [id, title, description, status, priority, storyPoints, acceptanceCriteria, tags, assignee]
+    - name: AcceptanceCriterion
+      description: A single, measurable condition that must be satisfied for a user story to be considered complete; may be expressed in plain text, Gherkin format, or as a checklist item
+      aliases: [condition of satisfaction, acceptance condition, done criteria, exit criterion]
+      properties: [id, storyId, description, format, given, when, then, status, order]
+    - name: Scenario
+      description: A Gherkin BDD scenario that automates the verification of an acceptance criterion using Given/When/Then steps in a feature file
+      aliases: [BDD scenario, test scenario, feature scenario, cucumber scenario]
+      properties: [id, storyId, criterionId, title, featureFile, gherkin, status]
+    - name: FeatureFile
+      description: A plain-text file containing Gherkin scenarios organized under a feature heading; serves as both documentation and executable specification
+      aliases: [.feature file, Gherkin file, specification file]
+      properties: [path, feature, scenarios]
+    - name: TestRun
+      description: An execution instance that runs acceptance tests for one or more user stories or scenarios and records pass/fail results
+      aliases: [test execution, acceptance run, CI run, build]
+      properties: [id, storyIds, scenarioIds, status, totalScenarios, passedScenarios, failedScenarios]
+
+  actions:
+    - name: Define
+      description: Write clear, measurable acceptance criteria for a user story during sprint planning or backlog refinement
+      verbs: [define, write, author, specify, document]
+    - name: Verify
+      description: Confirm that an acceptance criterion has been met by running tests or conducting a review
+      verbs: [verify, validate, confirm, pass, check]
+    - name: Automate
+      description: Convert acceptance criteria into executable Gherkin BDD scenarios that run as part of CI/CD pipelines
+      verbs: [automate, implement, code, script, generate]
+    - name: Review
+      description: Evaluate acceptance criteria with stakeholders to confirm completeness, clarity, and correctness
+      verbs: [review, refine, clarify, approve, sign-off]
+    - name: Track
+      description: Monitor the verification status of acceptance criteria across stories and sprints
+      verbs: [track, monitor, report, measure, assess]
+
+  workflows:
+    - name: Story to Verified Feature
+      description: End-to-end lifecycle from user story creation, acceptance criteria definition, BDD scenario authoring, test execution, and final stakeholder acceptance
+      steps: [create-story, define-criteria, create-scenarios, run-tests, verify-results, update-story]
+
+  personas:
+    - name: Product Owner
+      description: Defines acceptance criteria to communicate precise feature requirements; reviews test results and signs off on completed stories
+      primaryResources: [UserStory, AcceptanceCriterion]
+    - name: QA Engineer
+      description: Writes BDD scenarios from acceptance criteria; maintains automated acceptance test suites; reviews test run results
+      primaryResources: [AcceptanceCriterion, Scenario, TestRun]
+    - name: Developer
+      description: Implements features against acceptance criteria; writes step definitions for Gherkin scenarios; ensures tests pass before review
+      primaryResources: [UserStory, Scenario, TestRun]
+    - name: Scrum Master
+      description: Facilitates acceptance criteria refinement sessions; ensures Definition of Done includes acceptance criteria verification
+      primaryResources: [UserStory, AcceptanceCriterion]

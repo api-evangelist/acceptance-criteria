@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-acceptance-criterion.json",
+  "title": "AcceptanceCriterion",
+  "type": "object",
+  "description": "A single testable condition that must be met for a user story to be accepted as complete",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the acceptance criterion"
+    },
+    "storyId": {
+      "type": "string",
+      "description": "ID of the parent user story"
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language description of the acceptance condition"
+    },
+    "format": {
+      "type": "string",
+      "description": "Format used to express the criterion",
+      "enum": [
+        "plain-text",
+        "gherkin",
+        "checklist"
+      ]
+    },
+    "given": {
+      "type": "string",
+      "description": "Gherkin Given clause (context/precondition) if format is gherkin"
+    },
+    "when": {
+      "type": "string",
+      "description": "Gherkin When clause (action/trigger) if format is gherkin"
+    },
+    "then": {
+      "type": "string",
+      "description": "Gherkin Then clause (expected outcome) if format is gherkin"
+    },
+    "status": {
+      "type": "string",
+      "description": "Verification status of this criterion",
+      "enum": [
+        "not-verified",
+        "passing",
+        "failing"
+      ]
+    },
+    "order": {
+      "type": "integer",
+      "description": "Display order position within the parent story"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the criterion was created"
+    }
+  },
+  "required": [
+    "id",
+    "description"
+  ]
+}

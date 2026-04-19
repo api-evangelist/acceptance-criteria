@@ -1,0 +1,21 @@
+{
+  "total": 2,
+  "page": 1,
+  "pageSize": 20,
+  "stories": [
+    {
+      "id": "story-001",
+      "title": "As a customer, I want to filter products by category",
+      "status": "in-progress",
+      "priority": "high",
+      "storyPoints": 3
+    },
+    {
+      "id": "story-002",
+      "title": "As an admin, I want to export order reports as CSV",
+      "status": "backlog",
+      "priority": "medium",
+      "storyPoints": 5
+    }
+  ]
+}

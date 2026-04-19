@@ -1,0 +1,81 @@
+apiVersion: naftiko.io/v1alpha1
+kind: WorkflowCapability
+metadata:
+  name: requirements-management
+  version: 1.0.0
+  description: End-to-end requirements management workflow for defining acceptance criteria, automating BDD scenario generation, and validating stories through acceptance test execution
+  provider: Reference Implementation
+  tags:
+    - Acceptance Criteria
+    - Requirements
+    - BDD
+    - Agile
+    - Quality Assurance
+spec:
+  sharedCapabilities:
+    - acceptance-criteria-management
+  workflow:
+    name: Story to Verified Feature Workflow
+    description: Complete lifecycle from user story creation through acceptance criteria definition, BDD scenario authoring, test execution, and story sign-off
+    steps:
+      - id: create-story
+        name: Create User Story
+        description: Create a new user story with a title, description, and priority
+        operation: createUserStory
+      - id: define-criteria
+        name: Define Acceptance Criteria
+        description: Add measurable acceptance criteria to the user story in Gherkin or plain-text format
+        operation: addAcceptanceCriterion
+        dependsOn: [create-story]
+      - id: create-scenarios
+        name: Create BDD Scenarios
+        description: Author Gherkin feature file scenarios linked to each acceptance criterion
+        operation: createScenario
+        dependsOn: [define-criteria]
+      - id: run-tests
+        name: Execute Acceptance Tests
+        description: Trigger a test run to execute all scenarios for the user story
+        operation: createTestRun
+        dependsOn: [create-scenarios]
+      - id: verify-results
+        name: Verify Test Results
+        description: Review test run results and update acceptance criterion status based on pass/fail
+        operation: listTestRuns
+        dependsOn: [run-tests]
+      - id: update-story
+        name: Update Story Status
+        description: Mark story as ready-for-review or done based on acceptance criteria verification
+        operation: updateUserStory
+        dependsOn: [verify-results]
+  mcpTools:
+    - name: create_user_story
+      description: Create a new user story with title, description, priority, and story points
+      capability: acceptance-criteria-management
+      operation: createUserStory
+    - name: add_acceptance_criterion
+      description: Add a Gherkin or plain-text acceptance criterion to a user story
+      capability: acceptance-criteria-management
+      operation: addAcceptanceCriterion
+    - name: list_acceptance_criteria
+      description: Retrieve all acceptance criteria for a user story with their verification status
+      capability: acceptance-criteria-management
+      operation: listAcceptanceCriteria
+    - name: create_bdd_scenario
+      description: Create a Gherkin BDD scenario linked to an acceptance criterion for automated testing
+      capability: acceptance-criteria-management
+      operation: createScenario
+    - name: run_acceptance_tests
+      description: Trigger an acceptance test run for specified user stories or scenarios
+      capability: acceptance-criteria-management
+      operation: createTestRun
+    - name: get_test_results
+      description: Retrieve acceptance test run results with pass/fail counts and report URL
+      capability: acceptance-criteria-management
+      operation: listTestRuns
+    - name: get_user_story
+      description: Get a user story with all its acceptance criteria and current status
+      capability: acceptance-criteria-management
+      operation: getUserStory
+  ports:
+    http: 8080
+    grpc: 9090

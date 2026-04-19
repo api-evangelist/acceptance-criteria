@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-user-story-list.json",
+  "title": "UserStoryList",
+  "type": "object",
+  "description": "Paginated list of user stories",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of user stories matching the query"
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number"
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "Number of items per page"
+    },
+    "stories": {
+      "type": "array",
+      "description": "Array of user story objects",
+      "items": {
+        "$ref": "user-story.json"
+      }
+    }
+  }
+}

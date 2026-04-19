@@ -1,0 +1,16 @@
+{
+  "id": "run-001",
+  "storyIds": [
+    "story-001",
+    "story-002"
+  ],
+  "scenarioIds": [],
+  "status": "passed",
+  "totalScenarios": 8,
+  "passedScenarios": 7,
+  "failedScenarios": 1,
+  "skippedScenarios": 0,
+  "startedAt": "2024-01-15T08:00:00Z",
+  "completedAt": "2024-01-15T08:04:32Z",
+  "reportUrl": "https://reports.cucumber.io/reports/abc123"
+}

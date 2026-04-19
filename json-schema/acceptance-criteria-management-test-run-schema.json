@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/test-run.json",
+  "title": "TestRun",
+  "type": "object",
+  "description": "An execution instance of acceptance criteria tests across one or more stories or scenarios",
+  "required": [
+    "id",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the test run"
+    },
+    "storyIds": {
+      "type": "array",
+      "description": "User story IDs included in this test run",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scenarioIds": {
+      "type": "array",
+      "description": "Specific scenario IDs included in this test run",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall test run status",
+      "enum": [
+        "queued",
+        "running",
+        "passed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "totalScenarios": {
+      "type": "integer",
+      "description": "Total number of scenarios in this run"
+    },
+    "passedScenarios": {
+      "type": "integer",
+      "description": "Number of scenarios that passed"
+    },
+    "failedScenarios": {
+      "type": "integer",
+      "description": "Number of scenarios that failed"
+    },
+    "skippedScenarios": {
+      "type": "integer",
+      "description": "Number of scenarios that were skipped"
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the test run started"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the test run completed"
+    },
+    "reportUrl": {
+      "type": "string",
+      "description": "URL to the detailed test run report"
+    }
+  }
+}

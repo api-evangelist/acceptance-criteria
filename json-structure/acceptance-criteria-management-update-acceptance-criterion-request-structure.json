@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-update-acceptance-criterion-request.json",
+  "title": "UpdateAcceptanceCriterionRequest",
+  "type": "object",
+  "description": "Request body for updating an acceptance criterion",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Updated description"
+    },
+    "given": {
+      "type": "string",
+      "description": "Updated Given clause"
+    },
+    "when": {
+      "type": "string",
+      "description": "Updated When clause"
+    },
+    "then": {
+      "type": "string",
+      "description": "Updated Then clause"
+    },
+    "status": {
+      "type": "string",
+      "description": "Updated verification status",
+      "enum": [
+        "not-verified",
+        "passing",
+        "failing"
+      ]
+    },
+    "order": {
+      "type": "integer",
+      "description": "Updated display order"
+    }
+  }
+}

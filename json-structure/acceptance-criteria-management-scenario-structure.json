@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api.example.com/structures/acceptance-criteria-management-scenario.json",
+  "title": "Scenario",
+  "type": "object",
+  "description": "A Gherkin BDD scenario that automates verification of an acceptance criterion",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the scenario"
+    },
+    "storyId": {
+      "type": "string",
+      "description": "ID of the parent user story"
+    },
+    "criterionId": {
+      "type": "string",
+      "description": "ID of the linked acceptance criterion"
+    },
+    "title": {
+      "type": "string",
+      "description": "Scenario title as it appears in the feature file"
+    },
+    "featureFile": {
+      "type": "string",
+      "description": "Path to the Gherkin feature file containing this scenario"
+    },
+    "gherkin": {
+      "type": "string",
+      "description": "Full Gherkin text of the scenario including Given/When/Then steps"
+    },
+    "status": {
+      "type": "string",
+      "description": "Latest test execution status",
+      "enum": [
+        "pending",
+        "passing",
+        "failing",
+        "skipped"
+      ]
+    },
+    "lastRunAt": {
+      "type": "string",
+      "description": "Timestamp of the most recent test execution"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the scenario was created"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "featureFile"
+  ]
+}

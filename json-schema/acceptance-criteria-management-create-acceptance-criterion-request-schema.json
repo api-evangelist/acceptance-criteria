@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.example.com/schemas/create-acceptance-criterion-request.json",
+  "title": "CreateAcceptanceCriterionRequest",
+  "type": "object",
+  "description": "Request body for adding an acceptance criterion to a story",
+  "required": [
+    "description"
+  ],
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Plain-language description of the acceptance condition"
+    },
+    "format": {
+      "type": "string",
+      "description": "Format of the criterion",
+      "enum": [
+        "plain-text",
+        "gherkin",
+        "checklist"
+      ]
+    },
+    "given": {
+      "type": "string",
+      "description": "Gherkin Given clause"
+    },
+    "when": {
+      "type": "string",
+      "description": "Gherkin When clause"
+    },
+    "then": {
+      "type": "string",
+      "description": "Gherkin Then clause"
+    },
+    "order": {
+      "type": "integer",
+      "description": "Display order position"
+    }
+  }
+}
