@@ -163,7 +163,7 @@ common:
 - url: json-structure/acceptance-criteria-management-test-run-structure.json
   type: JSONStructure
 - url: json-ld/acceptance-criteria-management-context.jsonld
-  type: JSON-LD
+  type: JSONLD
 - url: examples/acceptance-criteria-management-user-story-example.json
   type: Example
 - url: examples/acceptance-criteria-management-acceptance-criterion-example.json
