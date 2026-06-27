@@ -33,13 +33,13 @@ apis:
     type: Authentication
   - url: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
     type: RateLimits
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/management-acceptance-criteria.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/management-bdd-scenarios.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/management-test-runs.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: capabilities/management-user-stories.yaml
 - aid: acceptance-criteria:jira-issues-api
   name: Jira Issues API
@@ -138,13 +138,13 @@ common:
 - url: json-ld/acceptance-criteria-management-context.jsonld
   type: JSONLD
 - url: examples/acceptance-criteria-management-user-story-example.json
-  type: Example
+  type: Examples
 - url: examples/acceptance-criteria-management-acceptance-criterion-example.json
-  type: Example
+  type: Examples
 - url: examples/acceptance-criteria-management-scenario-example.json
-  type: Example
+  type: Examples
 - url: examples/acceptance-criteria-management-test-run-example.json
-  type: Example
+  type: Examples
 - type: Features
   data:
   - name: Gherkin Syntax Support
