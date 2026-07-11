@@ -109,6 +109,10 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: DomainSecurity
+  url: security/acceptance-criteria-domain-security.yml
+- type: Authentication
+  url: authentication/acceptance-criteria-authentication.yml
 - type: Website
   url: https://www.agilealliance.org/glossary/acceptance-criteria/
 - type: GettingStarted
