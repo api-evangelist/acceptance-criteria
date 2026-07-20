@@ -1,6 +1,7 @@
 aid: acceptance-criteria
 url: https://raw.githubusercontent.com/api-evangelist/acceptance-criteria/refs/heads/main/apis.yml
 name: Acceptance Criteria
+kind: topic
 type: Index
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
