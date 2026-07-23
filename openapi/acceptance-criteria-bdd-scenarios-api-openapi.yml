@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  title: Management Acceptance Criteria BDD Scenarios API
+  description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
+  version: 1.0.0
+  contact:
+    name: API Evangelist
+    url: https://apievangelist.com
+    email: kin@apievangelist.com
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://api.example.com/v1
+  description: Reference implementation server
+security:
+- bearerAuth: []
+tags:
+- name: BDD Scenarios
+paths:
+  /scenarios:
+    get:
+      operationId: listScenarios
+      summary: List BDD scenarios
+      description: Returns a list of Gherkin BDD scenarios derived from acceptance criteria
+      tags:
+      - BDD Scenarios
+      parameters:
+      - name: storyId
+        in: query
+        description: Filter scenarios by parent user story
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Filter by scenario test status
+        schema:
+          type: string
+          enum:
+          - pending
+          - passing
+          - failing
+          - skipped
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 20
+      responses:
+        '200':
+          description: List of BDD scenarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: createScenario
+      summary: Create a BDD scenario
+      description: Creates a new Gherkin BDD scenario linked to an acceptance criterion
+      tags:
+      - BDD Scenarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScenarioRequest'
+      responses:
+        '201':
+          description: Scenario created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scenario'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    CreateScenarioRequest:
+      type: object
+      description: Request body for creating a BDD scenario
+      required:
+      - storyId
+      - title
+      - featureFile
+      - gherkin
+      properties:
+        storyId:
+          type: string
+          description: ID of the parent user story
+        criterionId:
+          type: string
+          description: ID of the linked acceptance criterion
+        title:
+          type: string
+          description: Scenario title
+        featureFile:
+          type: string
+          description: Feature file path
+        gherkin:
+          type: string
+          description: Full Gherkin scenario text
+    ScenarioList:
+      type: object
+      description: Paginated list of BDD scenarios
+      properties:
+        total:
+          type: integer
+          description: Total number of scenarios matching the query
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        scenarios:
+          type: array
+          description: Array of scenario objects
+          items:
+            $ref: '#/components/schemas/Scenario'
+    Scenario:
+      type: object
+      description: A Gherkin BDD scenario that automates verification of an acceptance criterion
+      required:
+      - id
+      - title
+      - featureFile
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the scenario
+        storyId:
+          type: string
+          description: ID of the parent user story
+        criterionId:
+          type: string
+          description: ID of the linked acceptance criterion
+        title:
+          type: string
+          description: Scenario title as it appears in the feature file
+        featureFile:
+          type: string
+          description: Path to the Gherkin feature file containing this scenario
+        gherkin:
+          type: string
+          description: Full Gherkin text of the scenario including Given/When/Then steps
+        status:
+          type: string
+          description: Latest test execution status
+          enum:
+          - pending
+          - passing
+          - failing
+          - skipped
+        lastRunAt:
+          type: string
+          format: date-time
+          description: Timestamp of the most recent test execution
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the scenario was created
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Agile Alliance Acceptance Criteria Glossary
+  url: https://www.agilealliance.org/glossary/acceptance-criteria/

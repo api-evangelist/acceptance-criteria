@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: Management Acceptance Criteria Test Runs API
+  description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
+  version: 1.0.0
+  contact:
+    name: API Evangelist
+    url: https://apievangelist.com
+    email: kin@apievangelist.com
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://api.example.com/v1
+  description: Reference implementation server
+security:
+- bearerAuth: []
+tags:
+- name: Test Runs
+paths:
+  /test-runs:
+    get:
+      operationId: listTestRuns
+      summary: List acceptance test runs
+      description: Returns a list of acceptance test run executions with pass/fail results
+      tags:
+      - Test Runs
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 20
+      responses:
+        '200':
+          description: List of test runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestRunList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: createTestRun
+      summary: Create a test run
+      description: Triggers execution of acceptance criteria tests for a story or set of scenarios
+      tags:
+      - Test Runs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTestRunRequest'
+      responses:
+        '201':
+          description: Test run created and queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestRun'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    TestRunList:
+      type: object
+      description: Paginated list of test runs
+      properties:
+        total:
+          type: integer
+          description: Total number of test runs
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        runs:
+          type: array
+          description: Array of test run objects
+          items:
+            $ref: '#/components/schemas/TestRun'
+    TestRun:
+      type: object
+      description: An execution instance of acceptance criteria tests across one or more stories or scenarios
+      required:
+      - id
+      - status
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the test run
+        storyIds:
+          type: array
+          description: User story IDs included in this test run
+          items:
+            type: string
+        scenarioIds:
+          type: array
+          description: Specific scenario IDs included in this test run
+          items:
+            type: string
+        status:
+          type: string
+          description: Overall test run status
+          enum:
+          - queued
+          - running
+          - passed
+          - failed
+          - cancelled
+        totalScenarios:
+          type: integer
+          description: Total number of scenarios in this run
+        passedScenarios:
+          type: integer
+          description: Number of scenarios that passed
+        failedScenarios:
+          type: integer
+          description: Number of scenarios that failed
+        skippedScenarios:
+          type: integer
+          description: Number of scenarios that were skipped
+        startedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the test run started
+        completedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the test run completed
+        reportUrl:
+          type: string
+          description: URL to the detailed test run report
+    CreateTestRunRequest:
+      type: object
+      description: Request body for creating and triggering a test run
+      properties:
+        storyIds:
+          type: array
+          description: User story IDs to test (all scenarios for these stories)
+          items:
+            type: string
+        scenarioIds:
+          type: array
+          description: Specific scenario IDs to execute
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Agile Alliance Acceptance Criteria Glossary
+  url: https://www.agilealliance.org/glossary/acceptance-criteria/

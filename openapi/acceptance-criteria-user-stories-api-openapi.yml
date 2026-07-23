@@ -1,0 +1,372 @@
+openapi: 3.0.3
+info:
+  title: Management Acceptance Criteria User Stories API
+  description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
+  version: 1.0.0
+  contact:
+    name: API Evangelist
+    url: https://apievangelist.com
+    email: kin@apievangelist.com
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://api.example.com/v1
+  description: Reference implementation server
+security:
+- bearerAuth: []
+tags:
+- name: User Stories
+paths:
+  /stories:
+    get:
+      operationId: listUserStories
+      summary: List user stories
+      description: Returns a paginated list of user stories with their associated acceptance criteria
+      tags:
+      - User Stories
+      parameters:
+      - name: status
+        in: query
+        description: Filter by story status
+        schema:
+          type: string
+          enum:
+          - backlog
+          - in-progress
+          - ready-for-review
+          - done
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: pageSize
+        in: query
+        schema:
+          type: integer
+          default: 20
+      responses:
+        '200':
+          description: Paginated list of user stories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStoryList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: createUserStory
+      summary: Create a user story
+      description: Creates a new user story with optional acceptance criteria
+      tags:
+      - User Stories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserStoryRequest'
+      responses:
+        '201':
+          description: User story created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStory'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /stories/{storyId}:
+    get:
+      operationId: getUserStory
+      summary: Get a user story
+      description: Returns a specific user story with all its acceptance criteria
+      tags:
+      - User Stories
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User story details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      operationId: updateUserStory
+      summary: Update a user story
+      description: Updates a user story including its acceptance criteria
+      tags:
+      - User Stories
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserStoryRequest'
+      responses:
+        '200':
+          description: Updated user story
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStory'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    UpdateUserStoryRequest:
+      type: object
+      description: Request body for updating an existing user story
+      properties:
+        title:
+          type: string
+          description: Updated title
+        description:
+          type: string
+          description: Updated description
+        status:
+          type: string
+          description: Updated status
+          enum:
+          - backlog
+          - in-progress
+          - ready-for-review
+          - done
+        priority:
+          type: string
+          description: Updated priority
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+        storyPoints:
+          type: integer
+          description: Updated story point estimate
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
+    UserStoryList:
+      type: object
+      description: Paginated list of user stories
+      properties:
+        total:
+          type: integer
+          description: Total number of user stories matching the query
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        stories:
+          type: array
+          description: Array of user story objects
+          items:
+            $ref: '#/components/schemas/UserStory'
+    CreateUserStoryRequest:
+      type: object
+      description: Request body for creating a new user story
+      required:
+      - title
+      properties:
+        title:
+          type: string
+          description: Short title for the user story
+        description:
+          type: string
+          description: Full user story narrative
+        priority:
+          type: string
+          description: Priority level
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+        storyPoints:
+          type: integer
+          description: Effort estimate in story points
+        tags:
+          type: array
+          description: Labels or tags
+          items:
+            type: string
+        assignee:
+          type: string
+          description: Assignee username or ID
+    UserStory:
+      type: object
+      description: A user story representing a feature or requirement from the perspective of an end user
+      required:
+      - id
+      - title
+      - status
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the user story
+        title:
+          type: string
+          description: Short title summarizing the user story (As a... I want... So that...)
+        description:
+          type: string
+          description: Full user story narrative including role, goal, and benefit
+        status:
+          type: string
+          description: Current lifecycle status of the user story
+          enum:
+          - backlog
+          - in-progress
+          - ready-for-review
+          - done
+        priority:
+          type: string
+          description: Priority level of the user story
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+        storyPoints:
+          type: integer
+          description: Effort estimate in story points
+        acceptanceCriteria:
+          type: array
+          description: List of acceptance criteria that define done for this story
+          items:
+            $ref: '#/components/schemas/AcceptanceCriterion'
+        tags:
+          type: array
+          description: Labels or tags associated with the story
+          items:
+            type: string
+        assignee:
+          type: string
+          description: Username or ID of the person assigned to this story
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user story was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user story was last updated
+    AcceptanceCriterion:
+      type: object
+      description: A single testable condition that must be met for a user story to be accepted as complete
+      required:
+      - id
+      - description
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the acceptance criterion
+        storyId:
+          type: string
+          description: ID of the parent user story
+        description:
+          type: string
+          description: Plain-language description of the acceptance condition
+        format:
+          type: string
+          description: Format used to express the criterion
+          enum:
+          - plain-text
+          - gherkin
+          - checklist
+        given:
+          type: string
+          description: Gherkin Given clause (context/precondition) if format is gherkin
+        when:
+          type: string
+          description: Gherkin When clause (action/trigger) if format is gherkin
+        then:
+          type: string
+          description: Gherkin Then clause (expected outcome) if format is gherkin
+        status:
+          type: string
+          description: Verification status of this criterion
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Display order position within the parent story
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the criterion was created
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Agile Alliance Acceptance Criteria Glossary
+  url: https://www.agilealliance.org/glossary/acceptance-criteria/

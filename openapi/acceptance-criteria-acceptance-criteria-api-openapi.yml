@@ -1,0 +1,311 @@
+openapi: 3.0.3
+info:
+  title: Management Acceptance Criteria API
+  description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
+  version: 1.0.0
+  contact:
+    name: API Evangelist
+    url: https://apievangelist.com
+    email: kin@apievangelist.com
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+servers:
+- url: https://api.example.com/v1
+  description: Reference implementation server
+security:
+- bearerAuth: []
+tags:
+- name: Acceptance Criteria
+paths:
+  /stories/{storyId}/acceptance-criteria:
+    get:
+      operationId: listAcceptanceCriteria
+      summary: List acceptance criteria for a story
+      description: Returns all acceptance criteria items for a user story
+      tags:
+      - Acceptance Criteria
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of acceptance criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptanceCriteriaList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      operationId: addAcceptanceCriterion
+      summary: Add acceptance criterion
+      description: Adds a new acceptance criterion to a user story
+      tags:
+      - Acceptance Criteria
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAcceptanceCriterionRequest'
+      responses:
+        '201':
+          description: Acceptance criterion added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptanceCriterion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /stories/{storyId}/acceptance-criteria/{criterionId}:
+    put:
+      operationId: updateAcceptanceCriterion
+      summary: Update an acceptance criterion
+      description: Updates the text or status of an acceptance criterion
+      tags:
+      - Acceptance Criteria
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: criterionId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAcceptanceCriterionRequest'
+      responses:
+        '200':
+          description: Updated acceptance criterion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptanceCriterion'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      operationId: deleteAcceptanceCriterion
+      summary: Delete an acceptance criterion
+      description: Removes an acceptance criterion from a user story
+      tags:
+      - Acceptance Criteria
+      parameters:
+      - name: storyId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: criterionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Acceptance criterion deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    UpdateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for updating an acceptance criterion
+      properties:
+        description:
+          type: string
+          description: Updated description
+        given:
+          type: string
+          description: Updated Given clause
+        when:
+          type: string
+          description: Updated When clause
+        then:
+          type: string
+          description: Updated Then clause
+        status:
+          type: string
+          description: Updated verification status
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Updated display order
+    CreateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for adding an acceptance criterion to a story
+      required:
+      - description
+      properties:
+        description:
+          type: string
+          description: Plain-language description of the acceptance condition
+        format:
+          type: string
+          description: Format of the criterion
+          enum:
+          - plain-text
+          - gherkin
+          - checklist
+          default: plain-text
+        given:
+          type: string
+          description: Gherkin Given clause
+        when:
+          type: string
+          description: Gherkin When clause
+        then:
+          type: string
+          description: Gherkin Then clause
+        order:
+          type: integer
+          description: Display order position
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
+    AcceptanceCriterion:
+      type: object
+      description: A single testable condition that must be met for a user story to be accepted as complete
+      required:
+      - id
+      - description
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the acceptance criterion
+        storyId:
+          type: string
+          description: ID of the parent user story
+        description:
+          type: string
+          description: Plain-language description of the acceptance condition
+        format:
+          type: string
+          description: Format used to express the criterion
+          enum:
+          - plain-text
+          - gherkin
+          - checklist
+        given:
+          type: string
+          description: Gherkin Given clause (context/precondition) if format is gherkin
+        when:
+          type: string
+          description: Gherkin When clause (action/trigger) if format is gherkin
+        then:
+          type: string
+          description: Gherkin Then clause (expected outcome) if format is gherkin
+        status:
+          type: string
+          description: Verification status of this criterion
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Display order position within the parent story
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the criterion was created
+    AcceptanceCriteriaList:
+      type: object
+      description: List of acceptance criteria for a user story
+      properties:
+        total:
+          type: integer
+          description: Total number of acceptance criteria
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        criteria:
+          type: array
+          description: Array of acceptance criteria
+          items:
+            $ref: '#/components/schemas/AcceptanceCriterion'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Agile Alliance Acceptance Criteria Glossary
+  url: https://www.agilealliance.org/glossary/acceptance-criteria/
