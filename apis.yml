@@ -3,7 +3,20 @@ url: https://raw.githubusercontent.com/api-evangelist/acceptance-criteria/refs/h
 name: Acceptance Criteria
 kind: topic
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/acceptance-criteria.png
 tags:
 - Agile
 - Behavior Driven Development
@@ -19,7 +32,10 @@ specificationVersion: '0.19'
 apis:
 - aid: acceptance-criteria:github-issues-api
   name: GitHub Issues API
-  description: GitHub Issues API enables teams to create, manage, and track user stories and acceptance criteria as structured issue records with labels, milestones, and custom fields. Commonly used to attach acceptance criteria directly to issues using body text or checklists in Markdown.
+  description: >-
+    GitHub Issues API enables teams to create, manage, and track user stories and acceptance criteria
+    as structured issue records with labels, milestones, and custom fields. Commonly used to attach acceptance
+    criteria directly to issues using body text or checklists in Markdown.
   humanURL: https://docs.github.com/en/rest/issues
   baseURL: https://api.github.com
   tags:
@@ -44,7 +60,10 @@ apis:
     url: capabilities/management-user-stories.yaml
 - aid: acceptance-criteria:jira-issues-api
   name: Jira Issues API
-  description: Jira REST API provides access to issues, user stories, epics, and acceptance criteria stored in custom fields. Teams use Jira to define, link, and track acceptance criteria against development work items throughout the sprint lifecycle.
+  description: >-
+    Jira REST API provides access to issues, user stories, epics, and acceptance criteria stored in custom
+    fields. Teams use Jira to define, link, and track acceptance criteria against development work items
+    throughout the sprint lifecycle.
   humanURL: https://developer.atlassian.com/cloud/jira/platform/rest/v3/
   baseURL: https://your-domain.atlassian.net/rest/api/3
   tags:
@@ -61,7 +80,10 @@ apis:
     type: RateLimits
 - aid: acceptance-criteria:azure-devops-work-items-api
   name: Azure DevOps Work Items API
-  description: Azure DevOps Work Items REST API enables management of user stories, acceptance criteria, and test cases in Azure Boards. Acceptance criteria are stored as a rich text field on Product Backlog Items and User Story work item types, accessible and updatable via REST.
+  description: >-
+    Azure DevOps Work Items REST API enables management of user stories, acceptance criteria, and test
+    cases in Azure Boards. Acceptance criteria are stored as a rich text field on Product Backlog Items
+    and User Story work item types, accessible and updatable via REST.
   humanURL: https://learn.microsoft.com/en-us/rest/api/azure/devops/wit/
   baseURL: https://dev.azure.com/{organization}/{project}/_apis/wit
   tags:
@@ -76,7 +98,10 @@ apis:
     type: Authentication
 - aid: acceptance-criteria:linear-api
   name: Linear API
-  description: Linear GraphQL API provides access to issues, projects, and cycles used by engineering teams to track features and acceptance criteria. Linear supports structured issue descriptions with Markdown, enabling teams to embed acceptance criteria checklists directly on issues.
+  description: >-
+    Linear GraphQL API provides access to issues, projects, and cycles used by engineering teams to track
+    features and acceptance criteria. Linear supports structured issue descriptions with Markdown, enabling
+    teams to embed acceptance criteria checklists directly on issues.
   humanURL: https://developers.linear.app/docs/graphql/working-with-the-graphql-api
   baseURL: https://api.linear.app/graphql
   tags:
@@ -93,8 +118,12 @@ apis:
     type: GraphQL
 - aid: acceptance-criteria:testrail-api
   name: TestRail API
-  description: TestRail REST API provides access to test cases, test runs, test plans, and results. Teams use TestRail to formally document acceptance criteria as test cases with preconditions, expected results, and step-by-step validation criteria that map directly to user stories.
-  humanURL: https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API
+  description: >-
+    TestRail REST API provides access to test cases, test runs, test plans, and results. Teams use TestRail
+    to formally document acceptance criteria as test cases with preconditions, expected results, and step-by-step
+    validation criteria that map directly to user stories.
+  humanURL: >-
+    https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API
   baseURL: https://your-instance.testrail.io/index.php?/api/v2
   tags:
   - Test Cases
@@ -102,10 +131,53 @@ apis:
   - Quality Assurance
   - Requirements
   properties:
-  - url: https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API
+  - url: >-
+      https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API
     type: Documentation
-  - url: https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API#authentication
+  - url: >-
+      https://support.testrail.com/hc/en-us/articles/7077792415124-Introduction-to-the-TestRail-API#authentication
     type: Authentication
+- aid: acceptance-criteria:acceptance-criteria-acceptance-criteria-api
+  name: Acceptance Criteria Acceptance Criteria API
+  description: >-
+    The Acceptance Criteria API from Acceptance Criteria — 2 operation(s) for acceptance criteria.
+  humanURL: https://docs.github.com/en/rest/issues
+  baseURL: https://api.github.com
+  tags:
+  - Acceptance Criteria
+  properties:
+  - type: OpenAPI
+    url: openapi/acceptance-criteria-acceptance-criteria-api-openapi.yml
+- aid: acceptance-criteria:acceptance-criteria-bdd-scenarios-api
+  name: Acceptance Criteria BDD Scenarios API
+  description: The BDD Scenarios API from Acceptance Criteria — 1 operation(s) for bdd scenarios.
+  humanURL: https://docs.github.com/en/rest/issues
+  baseURL: https://api.github.com
+  tags:
+  - BDD Scenarios
+  properties:
+  - type: OpenAPI
+    url: openapi/acceptance-criteria-bdd-scenarios-api-openapi.yml
+- aid: acceptance-criteria:acceptance-criteria-test-runs-api
+  name: Acceptance Criteria Test Runs API
+  description: The Test Runs API from Acceptance Criteria — 1 operation(s) for test runs.
+  humanURL: https://docs.github.com/en/rest/issues
+  baseURL: https://api.github.com
+  tags:
+  - Test Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/acceptance-criteria-test-runs-api-openapi.yml
+- aid: acceptance-criteria:acceptance-criteria-user-stories-api
+  name: Acceptance Criteria User Stories API
+  description: The User Stories API from Acceptance Criteria — 2 operation(s) for user stories.
+  humanURL: https://docs.github.com/en/rest/issues
+  baseURL: https://api.github.com
+  tags:
+  - User Stories
+  properties:
+  - type: OpenAPI
+    url: openapi/acceptance-criteria-user-stories-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
