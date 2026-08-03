@@ -1,0 +1,20 @@
+{
+  "provider": "acceptance-criteria",
+  "sources": [
+    "acceptance-criteria-acceptance-criteria-api-openapi.yml",
+    "acceptance-criteria-bdd-scenarios-api-openapi.yml",
+    "acceptance-criteria-test-runs-api-openapi.yml",
+    "acceptance-criteria-user-stories-api-openapi.yml"
+  ],
+  "outputs": [
+    "acceptance-criteria-acceptance-criteria-api-openapi.yml",
+    "acceptance-criteria-bdd-scenarios-api-openapi.yml",
+    "acceptance-criteria-test-runs-api-openapi.yml",
+    "acceptance-criteria-user-stories-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
