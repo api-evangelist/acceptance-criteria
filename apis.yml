@@ -50,14 +50,6 @@ apis:
     type: Authentication
   - url: https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
     type: RateLimits
-  - type: X-NaftikoCapability
-    url: capabilities/management-acceptance-criteria.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/management-bdd-scenarios.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/management-test-runs.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/management-user-stories.yaml
 - aid: acceptance-criteria:jira-issues-api
   name: Jira Issues API
   description: >-
@@ -196,7 +188,7 @@ common:
   url: rules/acceptance-criteria-spectral-rules.yml
 - type: Vocabulary
   url: vocabulary/acceptance-criteria-vocabulary.yaml
-- url: openapi/acceptance-criteria-management.yaml
+- url: openapi/_original/acceptance-criteria-management.yaml
   type: OpenAPI
 - url: json-schema/acceptance-criteria-management-user-story-schema.json
   type: JSONSchema
