@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Acceptance Criteria API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Acceptance Criteria",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List acceptance criteria for a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.example.com/v1/stories/:storyId/acceptance-criteria",
+            "params": [
+              {
+                "name": "storyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns all acceptance criteria items for a user story"
+        },
+        {
+          "info": {
+            "name": "Add acceptance criterion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.example.com/v1/stories/:storyId/acceptance-criteria",
+            "params": [
+              {
+                "name": "storyId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new acceptance criterion to a user story"
+        },
+        {
+          "info": {
+            "name": "Update an acceptance criterion",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.example.com/v1/stories/:storyId/acceptance-criteria/:criterionId",
+            "params": [
+              {
+                "name": "storyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "criterionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the text or status of an acceptance criterion"
+        },
+        {
+          "info": {
+            "name": "Delete an acceptance criterion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.example.com/v1/stories/:storyId/acceptance-criteria/:criterionId",
+            "params": [
+              {
+                "name": "storyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "criterionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes an acceptance criterion from a user story"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
