@@ -19,6 +19,14 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/acceptance-criteria.png
 tags:
 - Agile
+- Behavior-Driven Development
+- Gherkin
+- Quality Assurance
+- Requirements
+- Testing
+- User Stories
+tags_raw:
+- Agile
 - Behavior Driven Development
 - Gherkin
 - Quality Assurance
