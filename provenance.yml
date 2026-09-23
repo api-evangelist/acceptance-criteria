@@ -153,18 +153,21 @@ artifacts:
   json-structure/acceptance-criteria-management-user-story-structure.json:
     method: unknown
     evidence: no authorship recorded
+  openapi/_original/acceptance-criteria-management.yaml:
+    method: harvested
+    evidence: fetched from the provider as-is; byte-identical to the source
   openapi/acceptance-criteria-acceptance-criteria-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/acceptance-criteria-bdd-scenarios-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/acceptance-criteria-test-runs-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   openapi/acceptance-criteria-user-stories-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   plans/acceptance-criteria-plans-pricing.yml:
     method: generated
     evidence: declared in the artifact

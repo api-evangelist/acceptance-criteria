@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Management Acceptance Criteria API
   description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
@@ -144,6 +144,18 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Resource not found
       content:
@@ -156,74 +168,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    UpdateAcceptanceCriterionRequest:
-      type: object
-      description: Request body for updating an acceptance criterion
-      properties:
-        description:
-          type: string
-          description: Updated description
-        given:
-          type: string
-          description: Updated Given clause
-        when:
-          type: string
-          description: Updated When clause
-        then:
-          type: string
-          description: Updated Then clause
-        status:
-          type: string
-          description: Updated verification status
-          enum:
-          - not-verified
-          - passing
-          - failing
-        order:
-          type: integer
-          description: Updated display order
-    CreateAcceptanceCriterionRequest:
-      type: object
-      description: Request body for adding an acceptance criterion to a story
-      required:
-      - description
-      properties:
-        description:
-          type: string
-          description: Plain-language description of the acceptance condition
-        format:
-          type: string
-          description: Format of the criterion
-          enum:
-          - plain-text
-          - gherkin
-          - checklist
-          default: plain-text
-        given:
-          type: string
-          description: Gherkin Given clause
-        when:
-          type: string
-          description: Gherkin When clause
-        then:
-          type: string
-          description: Gherkin Then clause
-        order:
-          type: integer
-          description: Display order position
     ErrorResponse:
       type: object
       description: Standard error response
@@ -283,6 +228,32 @@ components:
           type: string
           format: date-time
           description: Timestamp when the criterion was created
+    UpdateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for updating an acceptance criterion
+      properties:
+        description:
+          type: string
+          description: Updated description
+        given:
+          type: string
+          description: Updated Given clause
+        when:
+          type: string
+          description: Updated When clause
+        then:
+          type: string
+          description: Updated Then clause
+        status:
+          type: string
+          description: Updated verification status
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Updated display order
     AcceptanceCriteriaList:
       type: object
       description: List of acceptance criteria for a user story
@@ -301,6 +272,35 @@ components:
           description: Array of acceptance criteria
           items:
             $ref: '#/components/schemas/AcceptanceCriterion'
+    CreateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for adding an acceptance criterion to a story
+      required:
+      - description
+      properties:
+        description:
+          type: string
+          description: Plain-language description of the acceptance condition
+        format:
+          type: string
+          description: Format of the criterion
+          enum:
+          - plain-text
+          - gherkin
+          - checklist
+          default: plain-text
+        given:
+          type: string
+          description: Gherkin Given clause
+        when:
+          type: string
+          description: Gherkin When clause
+        then:
+          type: string
+          description: Gherkin Then clause
+        order:
+          type: integer
+          description: Display order position
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,10 +1,7 @@
 {
   "provider": "acceptance-criteria",
   "sources": [
-    "acceptance-criteria-acceptance-criteria-api-openapi.yml",
-    "acceptance-criteria-bdd-scenarios-api-openapi.yml",
-    "acceptance-criteria-test-runs-api-openapi.yml",
-    "acceptance-criteria-user-stories-api-openapi.yml"
+    "_original/acceptance-criteria-management.yaml"
   ],
   "outputs": [
     "acceptance-criteria-acceptance-criteria-api-openapi.yml",
@@ -15,6 +12,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "acceptance-criteria-management.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "acceptance-criteria-management.yaml: declared missing tag: Acceptance Criteria",
+    "acceptance-criteria-management.yaml: declared missing tag: BDD Scenarios",
+    "acceptance-criteria-management.yaml: declared missing tag: Test Runs",
+    "acceptance-criteria-management.yaml: declared missing tag: User Stories",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "acceptance-criteria-acceptance-criteria-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acceptance-criteria-bdd-scenarios-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acceptance-criteria-test-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "acceptance-criteria-user-stories-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

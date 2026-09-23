@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Management Acceptance Criteria BDD Scenarios API
+  title: Acceptance Criteria Management BDD Scenarios API
   description: A reference API design for managing acceptance criteria, user stories, and BDD scenarios. This specification models the common data structures and operations found across acceptance criteria management tools including Jira, GitHub Issues, Azure DevOps, and TestRail. It can serve as a canonical schema reference for integrating acceptance criteria data across multiple systems.
   version: 1.0.0
   contact:
@@ -88,31 +88,39 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    CreateScenarioRequest:
+    ErrorResponse:
       type: object
-      description: Request body for creating a BDD scenario
-      required:
-      - storyId
-      - title
-      - featureFile
-      - gherkin
+      description: Standard error response
       properties:
-        storyId:
+        code:
           type: string
-          description: ID of the parent user story
-        criterionId:
+          description: Machine-readable error code
+        message:
           type: string
-          description: ID of the linked acceptance criterion
-        title:
+          description: Human-readable error description
+        details:
           type: string
-          description: Scenario title
-        featureFile:
-          type: string
-          description: Feature file path
-        gherkin:
-          type: string
-          description: Full Gherkin scenario text
+          description: Additional error context or troubleshooting information
     ScenarioList:
       type: object
       description: Paginated list of BDD scenarios
@@ -173,38 +181,30 @@ components:
           type: string
           format: date-time
           description: Timestamp when the scenario was created
-    ErrorResponse:
+    CreateScenarioRequest:
       type: object
-      description: Standard error response
+      description: Request body for creating a BDD scenario
+      required:
+      - storyId
+      - title
+      - featureFile
+      - gherkin
       properties:
-        code:
+        storyId:
           type: string
-          description: Machine-readable error code
-        message:
+          description: ID of the parent user story
+        criterionId:
           type: string
-          description: Human-readable error description
-        details:
+          description: ID of the linked acceptance criterion
+        title:
           type: string
-          description: Additional error context or troubleshooting information
-  responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+          description: Scenario title
+        featureFile:
+          type: string
+          description: Feature file path
+        gherkin:
+          type: string
+          description: Full Gherkin scenario text
   securitySchemes:
     bearerAuth:
       type: http
