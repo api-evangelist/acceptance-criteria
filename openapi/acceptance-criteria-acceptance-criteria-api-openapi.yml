@@ -143,31 +143,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -182,6 +157,35 @@ components:
         details:
           type: string
           description: Additional error context or troubleshooting information
+    CreateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for adding an acceptance criterion to a story
+      required:
+      - description
+      properties:
+        description:
+          type: string
+          description: Plain-language description of the acceptance condition
+        format:
+          type: string
+          description: Format of the criterion
+          enum:
+          - plain-text
+          - gherkin
+          - checklist
+          default: plain-text
+        given:
+          type: string
+          description: Gherkin Given clause
+        when:
+          type: string
+          description: Gherkin When clause
+        then:
+          type: string
+          description: Gherkin Then clause
+        order:
+          type: integer
+          description: Display order position
     AcceptanceCriterion:
       type: object
       description: A single testable condition that must be met for a user story to be accepted as complete
@@ -228,6 +232,24 @@ components:
           type: string
           format: date-time
           description: Timestamp when the criterion was created
+    AcceptanceCriteriaList:
+      type: object
+      description: List of acceptance criteria for a user story
+      properties:
+        total:
+          type: integer
+          description: Total number of acceptance criteria
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        criteria:
+          type: array
+          description: Array of acceptance criteria
+          items:
+            $ref: '#/components/schemas/AcceptanceCriterion'
     UpdateAcceptanceCriterionRequest:
       type: object
       description: Request body for updating an acceptance criterion
@@ -254,53 +276,31 @@ components:
         order:
           type: integer
           description: Updated display order
-    AcceptanceCriteriaList:
-      type: object
-      description: List of acceptance criteria for a user story
-      properties:
-        total:
-          type: integer
-          description: Total number of acceptance criteria
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        criteria:
-          type: array
-          description: Array of acceptance criteria
-          items:
-            $ref: '#/components/schemas/AcceptanceCriterion'
-    CreateAcceptanceCriterionRequest:
-      type: object
-      description: Request body for adding an acceptance criterion to a story
-      required:
-      - description
-      properties:
-        description:
-          type: string
-          description: Plain-language description of the acceptance condition
-        format:
-          type: string
-          description: Format of the criterion
-          enum:
-          - plain-text
-          - gherkin
-          - checklist
-          default: plain-text
-        given:
-          type: string
-          description: Gherkin Given clause
-        when:
-          type: string
-          description: Gherkin When clause
-        then:
-          type: string
-          description: Gherkin Then clause
-        order:
-          type: integer
-          description: Display order position
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

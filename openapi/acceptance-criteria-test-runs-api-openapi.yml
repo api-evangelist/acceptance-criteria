@@ -74,24 +74,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    TestRunList:
-      type: object
-      description: Paginated list of test runs
-      properties:
-        total:
-          type: integer
-          description: Total number of test runs
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        runs:
-          type: array
-          description: Array of test run objects
-          items:
-            $ref: '#/components/schemas/TestRun'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -105,20 +87,6 @@ components:
         details:
           type: string
           description: Additional error context or troubleshooting information
-    CreateTestRunRequest:
-      type: object
-      description: Request body for creating and triggering a test run
-      properties:
-        storyIds:
-          type: array
-          description: User story IDs to test (all scenarios for these stories)
-          items:
-            type: string
-        scenarioIds:
-          type: array
-          description: Specific scenario IDs to execute
-          items:
-            type: string
     TestRun:
       type: object
       description: An execution instance of acceptance criteria tests across one or more stories or scenarios
@@ -171,6 +139,38 @@ components:
         reportUrl:
           type: string
           description: URL to the detailed test run report
+    CreateTestRunRequest:
+      type: object
+      description: Request body for creating and triggering a test run
+      properties:
+        storyIds:
+          type: array
+          description: User story IDs to test (all scenarios for these stories)
+          items:
+            type: string
+        scenarioIds:
+          type: array
+          description: Specific scenario IDs to execute
+          items:
+            type: string
+    TestRunList:
+      type: object
+      description: Paginated list of test runs
+      properties:
+        total:
+          type: integer
+          description: Total number of test runs
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        runs:
+          type: array
+          description: Array of test run objects
+          items:
+            $ref: '#/components/schemas/TestRun'
   responses:
     BadRequest:
       description: Bad request
@@ -178,14 +178,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
+    InternalServerError:
+      description: Internal server error
       content:
         application/json:
           schema:

@@ -88,25 +88,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -121,6 +102,30 @@ components:
         details:
           type: string
           description: Additional error context or troubleshooting information
+    CreateScenarioRequest:
+      type: object
+      description: Request body for creating a BDD scenario
+      required:
+      - storyId
+      - title
+      - featureFile
+      - gherkin
+      properties:
+        storyId:
+          type: string
+          description: ID of the parent user story
+        criterionId:
+          type: string
+          description: ID of the linked acceptance criterion
+        title:
+          type: string
+          description: Scenario title
+        featureFile:
+          type: string
+          description: Feature file path
+        gherkin:
+          type: string
+          description: Full Gherkin scenario text
     ScenarioList:
       type: object
       description: Paginated list of BDD scenarios
@@ -181,30 +186,25 @@ components:
           type: string
           format: date-time
           description: Timestamp when the scenario was created
-    CreateScenarioRequest:
-      type: object
-      description: Request body for creating a BDD scenario
-      required:
-      - storyId
-      - title
-      - featureFile
-      - gherkin
-      properties:
-        storyId:
-          type: string
-          description: ID of the parent user story
-        criterionId:
-          type: string
-          description: ID of the linked acceptance criterion
-        title:
-          type: string
-          description: Scenario title
-        featureFile:
-          type: string
-          description: Feature file path
-        gherkin:
-          type: string
-          description: Full Gherkin scenario text
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http
