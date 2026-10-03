@@ -143,19 +143,37 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ErrorResponse:
+    CreateUserStoryRequest:
       type: object
-      description: Standard error response
+      description: Request body for creating a new user story
+      required:
+      - title
       properties:
-        code:
+        title:
           type: string
-          description: Machine-readable error code
-        message:
+          description: Short title for the user story
+        description:
           type: string
-          description: Human-readable error description
-        details:
+          description: Full user story narrative
+        priority:
           type: string
-          description: Additional error context or troubleshooting information
+          description: Priority level
+          enum:
+          - low
+          - medium
+          - high
+          - critical
+        storyPoints:
+          type: integer
+          description: Effort estimate in story points
+        tags:
+          type: array
+          description: Labels or tags
+          items:
+            type: string
+        assignee:
+          type: string
+          description: Assignee username or ID
     UpdateUserStoryRequest:
       type: object
       description: Request body for updating an existing user story
@@ -185,70 +203,19 @@ components:
         storyPoints:
           type: integer
           description: Updated story point estimate
-    AcceptanceCriterion:
+    ErrorResponse:
       type: object
-      description: A single testable condition that must be met for a user story to be accepted as complete
-      required:
-      - id
-      - description
+      description: Standard error response
       properties:
-        id:
+        code:
           type: string
-          description: Unique identifier for the acceptance criterion
-        storyId:
+          description: Machine-readable error code
+        message:
           type: string
-          description: ID of the parent user story
-        description:
+          description: Human-readable error description
+        details:
           type: string
-          description: Plain-language description of the acceptance condition
-        format:
-          type: string
-          description: Format used to express the criterion
-          enum:
-          - plain-text
-          - gherkin
-          - checklist
-        given:
-          type: string
-          description: Gherkin Given clause (context/precondition) if format is gherkin
-        when:
-          type: string
-          description: Gherkin When clause (action/trigger) if format is gherkin
-        then:
-          type: string
-          description: Gherkin Then clause (expected outcome) if format is gherkin
-        status:
-          type: string
-          description: Verification status of this criterion
-          enum:
-          - not-verified
-          - passing
-          - failing
-        order:
-          type: integer
-          description: Display order position within the parent story
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the criterion was created
-    UserStoryList:
-      type: object
-      description: Paginated list of user stories
-      properties:
-        total:
-          type: integer
-          description: Total number of user stories matching the query
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        stories:
-          type: array
-          description: Array of user story objects
-          items:
-            $ref: '#/components/schemas/UserStory'
+          description: Additional error context or troubleshooting information
     UserStory:
       type: object
       description: A user story representing a feature or requirement from the perspective of an end user
@@ -306,40 +273,73 @@ components:
           type: string
           format: date-time
           description: Timestamp when the user story was last updated
-    CreateUserStoryRequest:
+    UserStoryList:
       type: object
-      description: Request body for creating a new user story
-      required:
-      - title
+      description: Paginated list of user stories
       properties:
-        title:
+        total:
+          type: integer
+          description: Total number of user stories matching the query
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        stories:
+          type: array
+          description: Array of user story objects
+          items:
+            $ref: '#/components/schemas/UserStory'
+    AcceptanceCriterion:
+      type: object
+      description: A single testable condition that must be met for a user story to be accepted as complete
+      required:
+      - id
+      - description
+      properties:
+        id:
           type: string
-          description: Short title for the user story
+          description: Unique identifier for the acceptance criterion
+        storyId:
+          type: string
+          description: ID of the parent user story
         description:
           type: string
-          description: Full user story narrative
-        priority:
+          description: Plain-language description of the acceptance condition
+        format:
           type: string
-          description: Priority level
+          description: Format used to express the criterion
           enum:
-          - low
-          - medium
-          - high
-          - critical
-        storyPoints:
-          type: integer
-          description: Effort estimate in story points
-        tags:
-          type: array
-          description: Labels or tags
-          items:
-            type: string
-        assignee:
+          - plain-text
+          - gherkin
+          - checklist
+        given:
           type: string
-          description: Assignee username or ID
+          description: Gherkin Given clause (context/precondition) if format is gherkin
+        when:
+          type: string
+          description: Gherkin When clause (action/trigger) if format is gherkin
+        then:
+          type: string
+          description: Gherkin Then clause (expected outcome) if format is gherkin
+        status:
+          type: string
+          description: Verification status of this criterion
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Display order position within the parent story
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the criterion was created
   responses:
-    BadRequest:
-      description: Bad request
+    InternalServerError:
+      description: Internal server error
       content:
         application/json:
           schema:
@@ -350,14 +350,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

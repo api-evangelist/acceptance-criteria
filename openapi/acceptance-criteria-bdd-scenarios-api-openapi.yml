@@ -89,61 +89,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error description
-        details:
-          type: string
-          description: Additional error context or troubleshooting information
-    CreateScenarioRequest:
-      type: object
-      description: Request body for creating a BDD scenario
-      required:
-      - storyId
-      - title
-      - featureFile
-      - gherkin
-      properties:
-        storyId:
-          type: string
-          description: ID of the parent user story
-        criterionId:
-          type: string
-          description: ID of the linked acceptance criterion
-        title:
-          type: string
-          description: Scenario title
-        featureFile:
-          type: string
-          description: Feature file path
-        gherkin:
-          type: string
-          description: Full Gherkin scenario text
-    ScenarioList:
-      type: object
-      description: Paginated list of BDD scenarios
-      properties:
-        total:
-          type: integer
-          description: Total number of scenarios matching the query
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        scenarios:
-          type: array
-          description: Array of scenario objects
-          items:
-            $ref: '#/components/schemas/Scenario'
     Scenario:
       type: object
       description: A Gherkin BDD scenario that automates verification of an acceptance criterion
@@ -186,7 +131,68 @@ components:
           type: string
           format: date-time
           description: Timestamp when the scenario was created
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
+    ScenarioList:
+      type: object
+      description: Paginated list of BDD scenarios
+      properties:
+        total:
+          type: integer
+          description: Total number of scenarios matching the query
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        scenarios:
+          type: array
+          description: Array of scenario objects
+          items:
+            $ref: '#/components/schemas/Scenario'
+    CreateScenarioRequest:
+      type: object
+      description: Request body for creating a BDD scenario
+      required:
+      - storyId
+      - title
+      - featureFile
+      - gherkin
+      properties:
+        storyId:
+          type: string
+          description: ID of the parent user story
+        criterionId:
+          type: string
+          description: ID of the linked acceptance criterion
+        title:
+          type: string
+          description: Scenario title
+        featureFile:
+          type: string
+          description: Feature file path
+        gherkin:
+          type: string
+          description: Full Gherkin scenario text
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Bad request
       content:
@@ -195,12 +201,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
       content:
         application/json:
           schema:

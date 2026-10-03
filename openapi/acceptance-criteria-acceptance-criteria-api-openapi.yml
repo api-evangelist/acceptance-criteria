@@ -144,6 +144,32 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    UpdateAcceptanceCriterionRequest:
+      type: object
+      description: Request body for updating an acceptance criterion
+      properties:
+        description:
+          type: string
+          description: Updated description
+        given:
+          type: string
+          description: Updated Given clause
+        when:
+          type: string
+          description: Updated When clause
+        then:
+          type: string
+          description: Updated Then clause
+        status:
+          type: string
+          description: Updated verification status
+          enum:
+          - not-verified
+          - passing
+          - failing
+        order:
+          type: integer
+          description: Updated display order
     ErrorResponse:
       type: object
       description: Standard error response
@@ -157,6 +183,24 @@ components:
         details:
           type: string
           description: Additional error context or troubleshooting information
+    AcceptanceCriteriaList:
+      type: object
+      description: List of acceptance criteria for a user story
+      properties:
+        total:
+          type: integer
+          description: Total number of acceptance criteria
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        criteria:
+          type: array
+          description: Array of acceptance criteria
+          items:
+            $ref: '#/components/schemas/AcceptanceCriterion'
     CreateAcceptanceCriterionRequest:
       type: object
       description: Request body for adding an acceptance criterion to a story
@@ -232,53 +276,9 @@ components:
           type: string
           format: date-time
           description: Timestamp when the criterion was created
-    AcceptanceCriteriaList:
-      type: object
-      description: List of acceptance criteria for a user story
-      properties:
-        total:
-          type: integer
-          description: Total number of acceptance criteria
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        criteria:
-          type: array
-          description: Array of acceptance criteria
-          items:
-            $ref: '#/components/schemas/AcceptanceCriterion'
-    UpdateAcceptanceCriterionRequest:
-      type: object
-      description: Request body for updating an acceptance criterion
-      properties:
-        description:
-          type: string
-          description: Updated description
-        given:
-          type: string
-          description: Updated Given clause
-        when:
-          type: string
-          description: Updated When clause
-        then:
-          type: string
-          description: Updated Then clause
-        status:
-          type: string
-          description: Updated verification status
-          enum:
-          - not-verified
-          - passing
-          - failing
-        order:
-          type: integer
-          description: Updated display order
   responses:
-    BadRequest:
-      description: Bad request
+    InternalServerError:
+      description: Internal server error
       content:
         application/json:
           schema:
@@ -289,14 +289,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

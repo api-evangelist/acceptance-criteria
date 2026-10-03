@@ -74,6 +74,24 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    TestRunList:
+      type: object
+      description: Paginated list of test runs
+      properties:
+        total:
+          type: integer
+          description: Total number of test runs
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        runs:
+          type: array
+          description: Array of test run objects
+          items:
+            $ref: '#/components/schemas/TestRun'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -153,25 +171,13 @@ components:
           description: Specific scenario IDs to execute
           items:
             type: string
-    TestRunList:
-      type: object
-      description: Paginated list of test runs
-      properties:
-        total:
-          type: integer
-          description: Total number of test runs
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        runs:
-          type: array
-          description: Array of test run objects
-          items:
-            $ref: '#/components/schemas/TestRun'
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Bad request
       content:
@@ -180,12 +186,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal server error
       content:
         application/json:
           schema:
