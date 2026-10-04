@@ -89,6 +89,37 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    ScenarioList:
+      type: object
+      description: Paginated list of BDD scenarios
+      properties:
+        total:
+          type: integer
+          description: Total number of scenarios matching the query
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Number of items per page
+        scenarios:
+          type: array
+          description: Array of scenario objects
+          items:
+            $ref: '#/components/schemas/Scenario'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+        message:
+          type: string
+          description: Human-readable error description
+        details:
+          type: string
+          description: Additional error context or troubleshooting information
     Scenario:
       type: object
       description: A Gherkin BDD scenario that automates verification of an acceptance criterion
@@ -131,37 +162,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the scenario was created
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code
-        message:
-          type: string
-          description: Human-readable error description
-        details:
-          type: string
-          description: Additional error context or troubleshooting information
-    ScenarioList:
-      type: object
-      description: Paginated list of BDD scenarios
-      properties:
-        total:
-          type: integer
-          description: Total number of scenarios matching the query
-        page:
-          type: integer
-          description: Current page number
-        pageSize:
-          type: integer
-          description: Number of items per page
-        scenarios:
-          type: array
-          description: Array of scenario objects
-          items:
-            $ref: '#/components/schemas/Scenario'
     CreateScenarioRequest:
       type: object
       description: Request body for creating a BDD scenario
@@ -193,14 +193,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
