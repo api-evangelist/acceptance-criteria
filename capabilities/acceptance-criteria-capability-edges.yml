@@ -1,0 +1,57 @@
+slug: acceptance-criteria
+provider: Acceptance Criteria
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Acceptance Criteria
+  spec_file: acceptance-criteria-acceptance-criteria-api-openapi.yml
+  capability_id: BC-4200.20
+  capability_id_l1: BC-4200
+  capability_name: Product Specification Management
+  confidence: 0.85
+  evidence: '"A reference API design for managing acceptance criteria, user stories, and BDD scenarios";
+    "POST /stories/{storyId}/acceptance-criteria addAcceptanceCriterion"'
+  reason: Operations manage acceptance criteria attached to user stories — capture of intended behaviour
+    and acceptance criteria so engineering work can be executed, i.e. Product Specification Management
+    in software engineering. Some overlap with quality engineering (BDD test scenarios) keeps confidence
+    below 0.95.
+- tag: Test Runs
+  spec_file: acceptance-criteria-test-runs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.78
+  evidence: GET /test-runs listTestRuns 'List acceptance test runs'; POST /test-runs 'Create a test run'
+  reason: Operations create and list acceptance test runs against criteria — test execution stewardship,
+    which is Software Quality Engineering.
+- tag: BDD Scenarios
+  spec_file: acceptance-criteria-bdd-scenarios-api-openapi.yml
+  capability_id: BC-4200.20
+  capability_id_l1: BC-4200
+  capability_name: Product Specification Management
+  confidence: 0.7
+  evidence: POST /scenarios createScenario 'Create a BDD scenario'; spec is 'A reference API design for
+    managing acceptance criteria, user stories, and BDD scenarios'
+  reason: BDD scenarios here are executable acceptance criteria attached to user stories — capture of
+    intended behaviour and acceptance criteria for engineering, i.e. Product Specification Management.
+    Some chance it reads as quality engineering, hence 0.7.
+- tag: User Stories
+  spec_file: acceptance-criteria-user-stories-api-openapi.yml
+  capability_id: BC-4200.20
+  capability_id_l1: BC-4200
+  capability_name: Product Specification Management
+  confidence: 0.7
+  evidence: POST /stories createUserStory 'Create a user story'; schemas UserStory, AcceptanceCriterion
+  reason: CRUD over user stories carrying acceptance criteria is capture of intended behaviour and acceptance
+    criteria for engineering execution. Could alternatively be backlog management (BC-4200.10), hence
+    moderate confidence.

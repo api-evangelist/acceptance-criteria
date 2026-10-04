@@ -194,6 +194,9 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/acceptance-criteria-capability-edges.yml
+  name: Acceptance Criteria Business Capability Map
 - type: AgenticAccess
   url: agentic-access/acceptance-criteria-agentic-access.yml
 - type: DomainSecurity
