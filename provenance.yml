@@ -11,6 +11,12 @@ artifacts:
   capabilities/acceptance-criteria-capability-edges.yml:
     method: unknown
     evidence: no authorship recorded
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   collections/acceptance-criteria-acceptance-criteria-api.opencollection.json:
     method: derived
     evidence: openapi/acceptance-criteria-acceptance-criteria-api
